@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orquestrador de agentes</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+.corpo{display:grid;grid-template-columns:400px 1fr 280px;gap:16px;align-items:start}
+.celular{background:#0b141a;border:8px solid #1a1f2b;border-radius:34px;overflow:hidden;height:720px;display:flex;flex-direction:column;box-shadow:0 20px 60px #0009}
+.chat-topo{background:#202c33;padding:12px 14px;display:flex;gap:10px;align-items:center}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--acento),var(--lilas));display:grid;place-items:center;color:#06121f;font-weight:800}
+.chat-topo small{color:#8696a0;display:block;font-size:12px}
+.chat{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:6px;background-color:#0b141a;background-image:radial-gradient(#ffffff08 1px,transparent 1px);background-size:18px 18px}
+.balao{max-width:84%;padding:6px 9px 4px;border-radius:9px;font-size:13.5px;line-height:1.35;color:#e9edef;cursor:pointer;border:1px solid transparent}
+.balao.eu{align-self:flex-end;background:#005c4b;border-top-right-radius:2px}
+.balao.bot{align-self:flex-start;background:#202c33;border-top-left-radius:2px}
+.balao.ativo{border-color:var(--acento)}
+.balao time{display:block;text-align:right;font-size:10.5px;color:#ffffff80;margin-top:1px}
+.balao .check{color:#53bdeb}
+.digitando{align-self:flex-start;background:#202c33;border-radius:9px;padding:9px 12px;display:flex;gap:4px}
+.digitando i{width:6px;height:6px;border-radius:50%;background:#8696a0;animation:pula 1s infinite}
+.digitando i:nth-child(2){animation-delay:.15s}.digitando i:nth-child(3){animation-delay:.3s}
+@keyframes pula{50%{transform:translateY(-4px)}}
+.chat-base{background:#202c33;padding:8px;display:flex;gap:8px}
+.chat-base input{background:#2a3942;border:0;border-radius:20px;color:#e9edef}
+.chat-base button{border-radius:50%;width:38px;height:38px;padding:0;background:#00a884;color:#06121f;flex:none}
+.aviso{text-align:center;font-size:11.5px;color:var(--nevoa);padding:6px}
+.passo{display:grid;grid-template-columns:26px 1fr auto;gap:10px;padding:9px 0;position:relative}
+.passo:not(:last-child)::before{content:"";position:absolute;left:12px;top:32px;bottom:-6px;width:2px;background:var(--linha)}
+.bola{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--ink3);border:1px solid var(--linha)}
+.bola.ok{color:var(--verde)}.bola.alerta{color:var(--ambar)}.bola.erro{color:var(--vermelho)}.bola.lilas{color:var(--lilas)}.bola.info{color:var(--acento)}
+.dados{margin-top:4px;background:var(--ink);border:1px solid var(--linha);border-radius:8px;padding:6px 10px;color:var(--nevoa);white-space:pre-wrap;word-break:break-word}
+.aprovar{border:1px solid #6b4f1f;background:#2a1f0c;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.barra{height:6px;border-radius:9px;background:var(--acento)}
+#detalhe{max-height:720px;overflow-y:auto}
+@media (max-width:1180px){.corpo{grid-template-columns:400px 1fr}.lateral{grid-column:1/-1}}
+@media (max-width:820px){.corpo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="marca">Orquestrador de <b>agentes</b></div>
+  <div class="sub">triagem → especialistas → aprovação humana</div>
+</header>
+<main class="pagina">
+  <section class="grade g4" id="kpis"></section>
+  <section class="corpo">
+    <div>
+      <div class="celular">
+        <div class="chat-topo"><div class="avatar">A</div><div><strong>Loja Aurora</strong><small>atendimento automático</small></div></div>
+        <div class="chat" id="chat"></div>
+        <form class="chat-base" id="novo">
+          <input id="pedido" aria-label="Mensagem do cliente" placeholder="Mensagem" autocomplete="off" required>
+          <button aria-label="Enviar">➤</button>
+        </form>
+      </div>
+      <p class="aviso">Simulador do canal de WhatsApp. Toque em uma mensagem para ver o rastro.</p>
+    </div>
+    <div class="cartao" id="detalhe"></div>
+    <div class="cartao lateral"><h2>Ferramentas</h2><div id="ferramentas"></div></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
